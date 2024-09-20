@@ -3,7 +3,7 @@ import './LeftSidebar.css'
 import assets from '../../assets/assets'
 import { useNavigate } from 'react-router-dom'
 import { arrayUnion, collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore'
-import { db } from '../../config/firebase'
+import { db, logout } from '../../config/firebase'
 import { AppContext } from '../../context/AppContext'
 import { toast } from 'react-toastify'
 
@@ -76,7 +76,7 @@ const LeftSidebar = () => {
         })
       })
 
-      const uSnap = await getDoc(doc,(db, "users", user.id));
+      const uSnap = await getDoc(doc(db, "users", user.id));
       const uData = uSnap.data();
       setChat({
         messagesId:newMessageRef.id,
@@ -119,7 +119,7 @@ const LeftSidebar = () => {
   useEffect(()=>{
     const updateChatUserData = async () =>{
       if (chatUser) {
-        const userRef = doc(db, "user", chatUser.userData.id);
+        const userRef = doc(db, "users", chatUser.userData.id);
         const userSnap = await getDoc(userRef);
         const userData = userSnap.data();
         setChatUser(prev=>({...prev, userData:userData}))
@@ -139,7 +139,7 @@ const LeftSidebar = () => {
             <div className="sub-menue">
               <p onClick={() => navigate("/profile")}>Edit Profile</p>
               <hr />
-              <p onClick={() => navigate("/profile")}>Logout</p>
+              <p onClick={() => logout()}>Logout</p>
             </div>
           </div>
         </div>
