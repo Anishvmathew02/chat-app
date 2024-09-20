@@ -7,7 +7,7 @@
 }
 
 .rs-profile{
-    padding-top: 60px;
+    padding-top: 35px;
     text-align: center;
     max-width: 70%;
     margin: auto;
@@ -75,8 +75,28 @@
     cursor: pointer;
 }
 
+.rs .arrow{
+    display: none;
+}
+
+.rs-top {
+    padding: 10px 15px;
+}
+
+
+
 @media (max-width:900px){
-    .rs{
+    .rs-hide{
         display: none;
+    }
+    .rs{
+        width: 100%;
+        justify-content: center;
+    }
+    .rs .arrow{
+        display: block;
+        font-size: 5px;
+        margin-left: auto;
+        width: 25px;
     }
 }

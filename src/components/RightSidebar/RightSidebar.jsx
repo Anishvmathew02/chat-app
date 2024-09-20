@@ -6,7 +6,7 @@ import { AppContext } from '../../context/AppContext'
 
 const RightSidebar = () => {
 
-  const {chatUser, messages} = useContext(AppContext);
+  const {chatUser, messages, chatVisible, showRight, setShowRight} = useContext(AppContext);
   const [msgImages, setMsgImages] = useState([])
 
   useEffect(()=>{
@@ -21,7 +21,10 @@ const RightSidebar = () => {
   }, [messages])
 
   return chatUser? (
-    <div className="rs">
+    <div className={`rs ${(chatVisible && showRight)? "" : "hidden"}`}>
+      <div className='rs-top'>
+        <img onClick={()=>setShowRight(false)} src={assets.arrow_icon} className="arrow" alt="" />
+      </div>
       <div className="rs-profile">
         <img src={chatUser.userData.avatar} alt="" />
         <h3>{Date.now()-chatUser.userData.lastSeen <= 70000 ? <img className='dot' src={assets.green_dot} alt="" /> : null }{chatUser.userData.name}</h3>
@@ -38,7 +41,7 @@ const RightSidebar = () => {
     </div>
   )
   : (
-    <div className='rs'>
+    <div className='rs rs-hide'>
       <button onClick={()=>logout()}>Logout</button>
     </div>
   )
