@@ -107,41 +107,16 @@ const ChatBox = () => {
   }
 
 
-  useEffect(() => {
-    if (messagesId && chatUser && userData) {
+  useEffect(() =>{
+    if (messagesId) {
       const unSub = onSnapshot(doc(db, 'messages', messagesId), (res) => {
-        setMessages(res.data().messages.reverse());
-      });
-  
-      const markMessageAsSeen = async () => {
-        try {
-          const userChatsRef = doc(db, 'chats', userData.id);
-          const userChatsSnapshot = await getDoc(userChatsRef);
-          const userChatsData = userChatsSnapshot.data();
-  
-          const chatIndex = userChatsData.chatsData.findIndex(c => c.messageId === messagesId);
-  
-          if (userChatsData.chatsData[chatIndex] && !userChatsData.chatsData[chatIndex].messageSeen) {
-            userChatsData.chatsData[chatIndex].messageSeen = true;
-  
-            await updateDoc(userChatsRef, {
-              chatsData: userChatsData.chatsData
-            });
-          }
-        } catch (error) {
-          console.error("Error marking message as seen:", error);
-          toast.error(error.message);
-        }
-      };
-  
-      markMessageAsSeen();
-  
-      return () => {
+        setMessages(res.data().messages.reverse())
+      })
+      return ()=> {
         unSub();
-      };
+      }
     }
-  }, [messagesId, userData, chatUser]);
-  
+  }, [messagesId])
 
 
 
