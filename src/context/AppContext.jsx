@@ -44,25 +44,38 @@ const AppContextProvider = (props) => {
   }
 
 
-  useEffect(() =>{
+  useEffect(() => {
     if (userData) {
       const chatRef = doc(db, 'chats', userData.id);
-      const unSub = onSnapshot(chatRef, async(res) =>{
-        const chatItems = res.data().chatsData;
-        const tempData = [];
-        for(const item of chatItems){
-          const userRef = doc(db, 'users', item.rId);
-          const userSnap = await getDoc(userRef);
-          const userData = userSnap.data();
-          tempData.push({...item, userData})
+      const unSub = onSnapshot(chatRef, async (res) => {
+        try {
+          const snapshotData = res.data();  
+          // Check if chatsData exists and is an array
+          const chatItems = Array.isArray(snapshotData?.chatsData) ? snapshotData.chatsData : [];
+          // If there are no chat items, set chatData to an empty array and return
+          if (chatItems.length === 0) {
+            setChatData([]);
+            return;
+          }
+          // Fetch additional user data for each chat item
+          const tempData = [];
+          for (const item of chatItems) {
+            const userRef = doc(db, 'users', item.rId);
+            const userSnap = await getDoc(userRef);
+            const userData = userSnap.data();
+            tempData.push({ ...item, userData });
+          }
+          // Sort the chat data by updatedAt and update the state
+          setChatData(tempData.sort((a, b) => b.updatedAt - a.updatedAt));
+        } catch (error) {
+          console.error('Error fetching chat data:', error);
         }
-        setChatData(tempData.sort((a,b)=> b.updatedAt - a.updatedAt));
-      })
-      return () =>{
+      });
+      return () => {
         unSub();
-      }
+      };
     }
-  }, [userData])
+  }, [userData]);
 
 
   const value = {

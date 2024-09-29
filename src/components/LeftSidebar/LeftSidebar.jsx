@@ -105,13 +105,16 @@ const LeftSidebar = () => {
       const chatIndex = userChatsData.chatsData.findIndex(
         (c) => c.messageId === item.messageId
       );
-      userChatsData.chatsData[chatIndex].messageSeen = true;
-      await updateDoc(userChatsRef, {
-        chatsData: userChatsData.chatsData,
-      });
+      if (chatIndex !== -1) {
+        userChatsData.chatsData[chatIndex].messageSeen = true;
+        await updateDoc(userChatsRef, {
+          chatsData: userChatsData.chatsData,
+        });
+      }
+
       setChatVisible(true);
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
   };
 
