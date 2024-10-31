@@ -4,12 +4,12 @@ import { getFirestore, setDoc, doc, collection, query, where, getDocs } from "fi
 import { toast } from "react-toastify";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAHbTX7t5uzH1zxcPf7KkvLAfHR0MgQKo8",
-  authDomain: "chat-app-77738.firebaseapp.com",
-  projectId: "chat-app-77738",
-  storageBucket: "chat-app-77738.appspot.com",
-  messagingSenderId: "920796728650",
-  appId: "1:920796728650:web:e9c57f75814dcf29f905b3"
+  apiKey: "AIzaSyCTVxgO6_5-YXpm-B5jgn9UziO0CvN95yU",
+  authDomain: "chat-app-34d54.firebaseapp.com",
+  projectId: "chat-app-34d54",
+  storageBucket: "chat-app-34d54.appspot.com",
+  messagingSenderId: "898593372387",
+  appId: "1:898593372387:web:a4b6705129df06fdf8edd6"
 };
 
 const app = initializeApp(firebaseConfig);

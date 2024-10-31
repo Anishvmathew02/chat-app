@@ -69,6 +69,7 @@
     overflow-y: scroll;
     display: flex;
     flex-direction: column-reverse;
+    padding-top: 20px;
 }
 
 .s-msg div img, .r-msg div img{
