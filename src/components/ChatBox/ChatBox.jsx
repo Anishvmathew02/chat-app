@@ -180,7 +180,7 @@ const ChatBox = () => {
       <div className="chat-user">
         <img 
           onClick={() => setShowRight(true)} 
-          src={chatUser.userData.avatar} 
+          src={chatUser.userData.avatar || assets.avatar_icon} 
           alt="User avatar" 
         />
         <p>
@@ -206,10 +206,14 @@ const ChatBox = () => {
               <p className="msg">{msg.text}</p>
             )}
             <div>
-              <img
-                src={msg.sId === userData.id ? userData.avatar : chatUser.userData.avatar}
-                alt="User avatar"
-              />
+            <img 
+              src={
+                msg.sId === userData.id 
+                  ? (userData.avatar || assets.avatar_icon) 
+                  : (chatUser.userData.avatar || assets.avatar_icon)
+              } 
+              alt="User avatar" 
+            />
               <p>{convertTimestamp(msg.createdAt)}</p>
             </div>
           </div>

@@ -162,14 +162,14 @@ const LeftSidebar = () => {
       <div className="ls-list">
         {showSearch && user ? (
           <div onClick={addChat} className="friends add-user">
-            <img src={user.avatar} alt={`${user.name}'s avatar`} />
+            <img src={user.avatar || assets.avatar_icon} alt="avatar" />
             <p>{user.name}</p>
           </div>
         ) 
         : (
           chatData.map((item, index) => (
             <div onClick={() => setChat(item)} key={index} className={`friends ${item.messageSeen || item.messageId === messagesId ? "" : "border"}`}>
-              <img src={item.userData.avatar} alt="Profile" />
+              <img src={item.userData.avatar || assets.avatar_icon} alt="Profile" />
               <div>
                 <p>{item.userData.name}</p>
                 <span>{item.lastMessage}</span>
